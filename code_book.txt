@@ -1,0 +1,63 @@
+Summary
+
+run_analysis.R integrated the test, training, features and labels etc. data information from human activity recognition experiment generating a tidy, usable data set. The description steps were explained as the comment lines in run_analysis.R. Variables and annotations of output file are explained below.
+
+
+Variables
+
+Step 1 & Step 4
+directory: work directory
+train_set_raw: X_train.txt (7352 X 561)
+	rows: records
+	columns: 561 features
+test_set_raw: X_test.txt (2947 X 561)
+	rows: records
+	columns: 561 features
+feature: features.txt (561 X 1)
+	column: feature names
+train_ActivityLabel: y_train.txt (7352 X 1)
+	column: activity lables of each training record in numeric format
+test_ActivityLabel: y_test.txt (2947 X 1)
+	column: activity lables of each test record in numeric format
+train_SubjectLabel: subject_train.txt (7352 X 1)
+	column: subject label of each training record in numeric format
+test_SubjectLabel: subject_test.txt (2947 X 1)
+	column: subject lables of each test record in numeric format
+train_set_final: combine train_ActivityLabel, train_SubjectLabel, and train_set_raw (7352 X 563)
+	rows: records
+	columns: activity lables of each training record in numeric format, subject label of each training record in numeric format, 561 features
+test_set_final: column combination of test_ActivityLabel, test_SubjectLabel, and test_set_raw (2947 X 563)
+	rows: records
+	columns: activity lables of each test record in numeric format, subject label of each test record in numeric format, 561 features
+train_test_set_final: row combination of train_set_final and test_set_final (10299 X 563)
+	rows: records
+	columns: activity lables of each training(test) record in numeric format, subject label of each training(test) record in numeric format, 561 features
+
+Step 2
+mean_std_feature: index of the measurements of the mean and standard deviation, ignore case (86)
+train_test_mean_std: extraction of the ActivityLabel, SubjectLabel, and measurements of the mean and standard deviation from train_test_set_final
+	rows: records
+	columns: ActivityLabel, SubjectLabel, records of measurements on the mean and standard deviation
+
+Step 3
+activity_contrast: activity_labels.txt (6 X 2)
+	columns: index, 6 activity names
+ActivityName: descriptive activity names of the activities in train_test_mean_std (10299)
+Update of train_test_mean_std: replace the ActivityLabel by ActivityName
+	rows: records
+	columns: ActivityName, SubjectLabel, records of measurements on the mean and standard deviation
+	
+Step 5
+avg_train_test_mean_std: average of each variable for each activity and each subject (180 X 88)
+	rows: average values of records by each of 30 participants and 6 activities
+	columns: ActivityName, SubjectLabel, records of measurements on the mean and standard deviation
+avg_train_test_mean_std_final: change the column order of ActivityName and SubjectLabel (180 X 88)
+	rows: average values of records by each of 30 participants and 6 activities
+	columns: SubjectLabel, ActivityName, records of measurements on the mean and standard deviation
+
+
+Output data information
+
+tidy_data.txt is the written-out of avg_train_test_mean_std_final
+	rows: average values of records by each of 30 participants and 6 activities
+	columns: SubjectLabel, ActivityName, records of measurements on the mean and standard deviation
